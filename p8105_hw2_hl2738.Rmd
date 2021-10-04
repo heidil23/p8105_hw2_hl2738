@@ -75,3 +75,9 @@ The median number of sports balls collected each year was
 #### Summarize the precipitation data set
 
 The precipitation dataset summarizes the precipitation during `r nrow(precipitation_df)` months in 2018 and 2019. The total precipitation in between January and December 2018 was `r sum(pull(precipitation_df, "2018"))` inches. The median monthly precipitation was `r median(pull(precipitation_df, "2018"))` inches. The maximum monthly precipitation in 2018 was `r max(pull(precipitation_df, "2018"))` inches and occurred during the month of September. For 2019, precipitation data is available only between January and June. The total precipitation in 2019 was `r sum(pull(precipitation_df, "2019"), na.rm = TRUE)` inches. The median monthly precipitation was `r median(pull(precipitation_df, "2019"), na.rm = TRUE)` and the maximum monthly precipitation was `r max(pull(precipitation_df, "2019"), na.rm = TRUE)` inches and occurred in March.
+
+## Problem 2
+
+#### Import and clean the pols-month file
+
+
