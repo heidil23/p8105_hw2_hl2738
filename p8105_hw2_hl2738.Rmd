@@ -161,3 +161,26 @@ The snp dataset included `r nrow(snp_df)` observations of `r ncol(snp_df)` varia
 The unemployment data set included `r nrow(unemployment_df)` observations of `r ncol(unemployment_df)` variables, with data collected between `r min(pull(unemployment_df, "year"))` and `r max(pull(unemployment_df, "year"))`. The data provide information on the percentage of unemployment per month. The lowest unemployment rate during this period was `r min(pull(five_thirty_eight_df, "percent"), na.rm = TRUE)`%, the highest rate was `r max(pull(five_thirty_eight_df, "percent"), na.rm = TRUE)`% and the median unemployment rate was `r median(pull(five_thirty_eight_df, "percent"), na.rm = TRUE)`%.
 
 The combined FiveThirtyEight data set has `r nrow(five_thirty_eight_df)` observations and `r ncol(five_thirty_eight_df)` columns, and it includes data collected between `r min(pull(five_thirty_eight_df, "year"))` and `r max(pull(five_thirty_eight_df, "year"))`. 
+
+## Problem 3
+
+First we will load and clean the Baby Names data set.
+
+```{r}
+baby_names_df = read_csv("./data/Popular_Baby_Names.csv") %>% 
+  janitor::clean_names() %>% 
+  mutate(
+    childs_first_name = str_to_title(childs_first_name),
+    ethnicity =
+           case_when(
+             ethnicity == "ASIAN AND PACIFIC ISLANDER" ~ "Asian and Pacific Islander",
+             ethnicity == "ASIAN AND PACI" ~ "Asian and Pacific Islander",
+             ethnicity == "WHITE NON HISPANIC" ~ "Non-Hispanic White",
+             ethnicity == "WHITE NON HISP" ~ "Non-Hispanic White",
+             ethnicity == "HISPANIC" ~ "Hispanic",
+             ethnicity == "BLACK NON HISP" ~ "Non-Hispanic Black",
+             ethnicity == "BLACK NON HISPANIC" ~ "Non-Hispanic Black")
+  ) %>%
+  distinct()
+```
+
