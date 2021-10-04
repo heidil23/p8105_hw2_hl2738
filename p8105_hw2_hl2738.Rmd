@@ -6,5 +6,24 @@ output: github_document
 
 ```{r setup, include=FALSE}
 library(tidyverse)
+library(readxl)
+```
+
+## Problem 1
+
+#### Set up the Mr. Trash Wheel data set
+
+Here we will read in the Mr. Trash Wheel Excel sheet and clean the data.
+
+```{r}
+trash_wheel_df =
+  read_excel(
+    "./data/Trash-Wheel-Collection-Totals-8-6-19.xlsx",
+    sheet = "Mr. Trash Wheel",
+    range = "A2:N408") %>% 
+  janitor::clean_names() %>% 
+  drop_na(dumpster) %>% 
+  mutate(sports_balls = as.integer(sports_balls))
+
 ```
 
