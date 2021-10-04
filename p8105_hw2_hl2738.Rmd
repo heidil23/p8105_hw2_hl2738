@@ -54,3 +54,20 @@ precipitation_df =
   left_join(precipitation_2018, precipitation_2019, by = "month") %>% 
   mutate(month = month.name[month])
 ```
+
+#### Summarize the Mr. Trash Wheel and Precipitation data sets
+
+Mr. Trash Wheel is a "water-wheel vessel that removes trash from the Inner Harbor in Baltimore, Maryland." The Mr. Trash Wheel data set contains information on `r nrow(trash_wheel_df)` dumpsters, with litter collected between `r min(pull(trash_wheel_df, year))` and `r max(pull(trash_wheel_df, year))`. There was a total of `r sum(pull(trash_wheel_df, weight_tons))` tons of litter, with a volume of `r sum(pull(trash_wheel_df, volume_cubic_yards))` cubic yards, removed during this time. The type of litter collected included
+`r format(sum(pull(trash_wheel_df, plastic_bottles)), scientific = FALSE)` plastic bottles,
+`r format(sum(pull(trash_wheel_df, polystyrene)), scientific = FALSE)` foam containers,
+`r sum(pull(trash_wheel_df, glass_bottles))` glass bottles,
+`r format(sum(pull(trash_wheel_df, grocery_bags)), scientific = FALSE)` grocery bags,
+`r format(sum(pull(trash_wheel_df, chip_bags)), scientific = FALSE)` chip bags, and
+`r sum(pull(trash_wheel_df, sports_balls))` sports balls.
+The median number of sports balls collected each year was
+`r median(trash_wheel_df$sports_balls[trash_wheel_df$year == "2014"])` in 2014,
+`r median(trash_wheel_df$sports_balls[trash_wheel_df$year == "2015"])` in 2015,
+`r median(trash_wheel_df$sports_balls[trash_wheel_df$year == "2016"])` in 2016,
+`r median(trash_wheel_df$sports_balls[trash_wheel_df$year == "2017"])` in 2017,
+`r median(trash_wheel_df$sports_balls[trash_wheel_df$year == "2018"])` in 2018, and
+`r median(trash_wheel_df$sports_balls[trash_wheel_df$year == "2019"])` in 2019.
