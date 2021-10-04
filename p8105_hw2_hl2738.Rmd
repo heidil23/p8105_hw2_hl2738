@@ -8,6 +8,7 @@ output: github_document
 library(tidyverse)
 library(readxl)
 library(dplyr)
+library(ggplot2)
 ```
 
 ## Problem 1
@@ -151,3 +152,12 @@ five_thirty_eight_df =
               left_join(., unemployment_df, by = c("year", "month"))
 ```
 
+#### Summary of the FiveThirtyEight data set
+
+The FiveThirtyEight data set combines three files: pols-month, snp, and unemployment. The pols-month dataset included `r nrow(pols_df)` observations of `r ncol(pols_df)` variables, with data collected between `r min(pull(pols_df, "year"))` and `r max(pull(pols_df, "year"))`. It incorporated information on the number of democratic and republican presidents, governors, senators, and representatives on a given date, based on polling information.
+
+The snp dataset included `r nrow(snp_df)` observations of `r ncol(snp_df)` variables, with data collected between `r min(pull(snp_df, "year"))` and `r max(pull(snp_df, "year"))`. The data provided information about the Standard & Poor's stock market index, specifically the closing values of the S&P stock index on the associated date. The lowest S&P closing value during this period was `r round(min(pull(snp_df, "close"), na.rm = TRUE), digits = 2)`, the highest closing value was `r round(max(pull(snp_df, "close"), na.rm = TRUE), digits = 2)` and the median closing value was `r round(median(pull(snp_df, "close"), na.rm = TRUE), digits = 2)`.
+
+The unemployment data set included `r nrow(unemployment_df)` observations of `r ncol(unemployment_df)` variables, with data collected between `r min(pull(unemployment_df, "year"))` and `r max(pull(unemployment_df, "year"))`. The data provide information on the percentage of unemployment per month. The lowest unemployment rate during this period was `r min(pull(five_thirty_eight_df, "percent"), na.rm = TRUE)`%, the highest rate was `r max(pull(five_thirty_eight_df, "percent"), na.rm = TRUE)`% and the median unemployment rate was `r median(pull(five_thirty_eight_df, "percent"), na.rm = TRUE)`%.
+
+The combined FiveThirtyEight data set has `r nrow(five_thirty_eight_df)` observations and `r ncol(five_thirty_eight_df)` columns, and it includes data collected between `r min(pull(five_thirty_eight_df, "year"))` and `r max(pull(five_thirty_eight_df, "year"))`. 
