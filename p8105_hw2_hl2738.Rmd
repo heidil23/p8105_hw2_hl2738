@@ -166,7 +166,7 @@ The combined FiveThirtyEight data set has `r nrow(five_thirty_eight_df)` observa
 
 First we will load and clean the Baby Names data set.
 
-```{r}
+```{r, message = FALSE}
 baby_names_df = read_csv("./data/Popular_Baby_Names.csv") %>% 
   janitor::clean_names() %>% 
   mutate(
@@ -184,3 +184,25 @@ baby_names_df = read_csv("./data/Popular_Baby_Names.csv") %>%
   distinct()
 ```
 
+#### Table of most popular baby names for girls
+
+This code chunk will produce a table showing the rank in popularity of the name “Olivia” as a female baby name over time, by ethnicity.
+
+```{r}
+olivia_df = baby_names_df %>%
+  filter(childs_first_name == "Olivia") %>% 
+  select(-gender, -childs_first_name, -count) %>% 
+  arrange(year_of_birth) %>% 
+  pivot_wider(
+    names_from = "year_of_birth",
+    values_from = "rank"
+  ) %>% 
+  arrange(ethnicity)
+
+colnames(olivia_df) = str_to_title(colnames(olivia_df))
+
+knitr::kable(
+  olivia_df[1:4, ],
+  caption = "Rank in popularity of the baby name Olivia over time by ethnicity",
+  align = "lcccccc")
+```
