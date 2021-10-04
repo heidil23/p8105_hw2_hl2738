@@ -55,7 +55,7 @@ precipitation_df =
   mutate(month = month.name[month])
 ```
 
-#### Summarize the Mr. Trash Wheel and Precipitation data sets
+#### Summarize the Mr. Trash Wheel data set
 
 Mr. Trash Wheel is a "water-wheel vessel that removes trash from the Inner Harbor in Baltimore, Maryland." The Mr. Trash Wheel data set contains information on `r nrow(trash_wheel_df)` dumpsters, with litter collected between `r min(pull(trash_wheel_df, year))` and `r max(pull(trash_wheel_df, year))`. There was a total of `r sum(pull(trash_wheel_df, weight_tons))` tons of litter, with a volume of `r sum(pull(trash_wheel_df, volume_cubic_yards))` cubic yards, removed during this time. The type of litter collected included
 `r format(sum(pull(trash_wheel_df, plastic_bottles)), scientific = FALSE)` plastic bottles,
@@ -71,3 +71,7 @@ The median number of sports balls collected each year was
 `r median(trash_wheel_df$sports_balls[trash_wheel_df$year == "2017"])` in 2017,
 `r median(trash_wheel_df$sports_balls[trash_wheel_df$year == "2018"])` in 2018, and
 `r median(trash_wheel_df$sports_balls[trash_wheel_df$year == "2019"])` in 2019.
+
+#### Summarize the precipitation data set
+
+The precipitation dataset summarizes the precipitation during `r nrow(precipitation_df)` months in 2018 and 2019. The total precipitation in between January and December 2018 was `r sum(pull(precipitation_df, "2018"))` inches. The median monthly precipitation was `r median(pull(precipitation_df, "2018"))` inches. The maximum monthly precipitation in 2018 was `r max(pull(precipitation_df, "2018"))` inches and occurred during the month of September. For 2019, precipitation data is available only between January and June. The total precipitation in 2019 was `r sum(pull(precipitation_df, "2019"), na.rm = TRUE)` inches. The median monthly precipitation was `r median(pull(precipitation_df, "2019"), na.rm = TRUE)` and the maximum monthly precipitation was `r max(pull(precipitation_df, "2019"), na.rm = TRUE)` inches and occurred in March.
