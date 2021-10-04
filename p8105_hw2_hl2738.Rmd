@@ -206,3 +206,26 @@ knitr::kable(
   caption = "Rank in popularity of the baby name Olivia over time by ethnicity",
   align = "lcccccc")
 ```
+
+#### Table of most popular baby names for boys
+
+This code chunk will produce a table showing the most popular boys name by ethnicity over time:
+
+```{r}
+boy_names = baby_names_df %>%
+  filter(gender == "MALE", rank == 1) %>% 
+  select(-gender, -rank, -count) %>% 
+  arrange(year_of_birth) %>% 
+  pivot_wider(
+    names_from = "year_of_birth",
+    values_from = "childs_first_name"
+  ) %>% 
+  arrange(ethnicity)
+
+colnames(boy_names) = str_to_title(colnames(boy_names))
+
+knitr::kable(
+  boy_names[1:4, ],
+  caption = "Most popular name among male children over time by ethnicity",
+  align = "lcccccc")
+```
