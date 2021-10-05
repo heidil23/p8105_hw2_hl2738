@@ -26,6 +26,7 @@ trash_wheel_df =
   janitor::clean_names() %>% 
   drop_na(dumpster) %>% 
   mutate(sports_balls = as.integer(sports_balls))
+
 ```
 
 #### Set up the precipitation data set
@@ -67,12 +68,12 @@ Mr. Trash Wheel is a "water-wheel vessel that removes trash from the Inner Harbo
 `r format(sum(pull(trash_wheel_df, chip_bags)), scientific = FALSE)` chip bags, and
 `r sum(pull(trash_wheel_df, sports_balls))` sports balls.
 The median number of sports balls collected each year was
-`r median(trash_wheel_df$sports_balls[trash_wheel_df$year == "2014"])` in 2014,
-`r median(trash_wheel_df$sports_balls[trash_wheel_df$year == "2015"])` in 2015,
-`r median(trash_wheel_df$sports_balls[trash_wheel_df$year == "2016"])` in 2016,
-`r median(trash_wheel_df$sports_balls[trash_wheel_df$year == "2017"])` in 2017,
-`r median(trash_wheel_df$sports_balls[trash_wheel_df$year == "2018"])` in 2018, and
-`r median(trash_wheel_df$sports_balls[trash_wheel_df$year == "2019"])` in 2019.
+`r median(pull(trash_wheel_df, sports_balls)[pull(trash_wheel_df, year) == 2014])` in 2014,
+`r median(pull(trash_wheel_df, sports_balls)[pull(trash_wheel_df, year) == 2015])` in 2015,
+`r median(pull(trash_wheel_df, sports_balls)[pull(trash_wheel_df, year) == 2016])` in 2016,
+`r median(pull(trash_wheel_df, sports_balls)[pull(trash_wheel_df, year) == 2017])` in 2017,
+`r median(pull(trash_wheel_df, sports_balls)[pull(trash_wheel_df, year) == 2018])` in 2018, and
+`r median(pull(trash_wheel_df, sports_balls)[pull(trash_wheel_df, year) == 2019])` in 2019.
 
 #### Summarize the precipitation data set
 
