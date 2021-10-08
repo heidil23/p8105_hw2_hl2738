@@ -10,6 +10,13 @@ library(readxl)
 library(dplyr)
 library(ggplot2)
 library(lubridate)
+library(kableExtra)
+
+knitr::opts_chunk$set(
+  fig.width = 6,
+  fig.asp = .6,
+  out.width = "90%"
+)
 ```
 
 ## Problem 1
@@ -78,7 +85,7 @@ The median number of sports balls collected each year was
 
 #### Summarize the precipitation data set
 
-The precipitation dataset summarizes the precipitation during `r nrow(precipitation_df)` months in 2018 and 2019. The total precipitation in between January and December 2018 was `r sum(pull(precipitation_df, "2018"))` inches. The median monthly precipitation was `r median(pull(precipitation_df, "2018"))` inches. The maximum monthly precipitation in 2018 was `r max(pull(precipitation_df, "2018"))` inches and occurred during the month of September. For 2019, precipitation data is available only between January and June. The total precipitation in 2019 was `r sum(pull(precipitation_df, "2019"), na.rm = TRUE)` inches. The median monthly precipitation was `r median(pull(precipitation_df, "2019"), na.rm = TRUE)` and the maximum monthly precipitation was `r max(pull(precipitation_df, "2019"), na.rm = TRUE)` inches and occurred in March.
+The precipitation dataset summarizes the precipitation during `r nrow(precipitation_df)` months in 2018 and 2019. The total precipitation between January and December 2018 was `r sum(pull(precipitation_df, "2018"))` inches. The median monthly precipitation was `r median(pull(precipitation_df, "2018"))` inches. The maximum monthly precipitation in 2018 was `r max(pull(precipitation_df, "2018"))` inches and occurred during the month of September. For 2019, precipitation data is available only between January and June. The total precipitation in 2019 was `r sum(pull(precipitation_df, "2019"), na.rm = TRUE)` inches. The median monthly precipitation was `r median(pull(precipitation_df, "2019"), na.rm = TRUE)` and the maximum monthly precipitation was `r max(pull(precipitation_df, "2019"), na.rm = TRUE)` inches and occurred in March.
 
 ## Problem 2
 
@@ -101,7 +108,7 @@ pols_df = read_csv("./data/pols-month.csv") %>%
 
 #### Import and clean the snp file
 
-Next we will import and clean the data in the snp.csv file. 
+Next we will import and clean the data in the snp.csv file, following similar methods to the pols-month file.
 
 ```{r, message = FALSE}
 snp_df = read_csv("./data/snp.csv") %>% 
@@ -208,13 +215,13 @@ colnames(olivia_df) = str_to_title(colnames(olivia_df))
 
 knitr::kable(
   olivia_df[1:4, ],
-  caption = "Rank in popularity of the baby name Olivia over time by ethnicity",
+  caption = ,
   align = "lcccccc")
 ```
 
 #### Table of most popular baby names for boys
 
-This code chunk will produce a table showing the most popular boys name by ethnicity over time:
+This code chunk will produce a table showing the most popular boys name (ranked #1) by ethnicity over time:
 
 ```{r}
 boy_names = baby_names_df %>%
@@ -231,7 +238,7 @@ colnames(boy_names) = str_to_title(colnames(boy_names))
 
 knitr::kable(
   boy_names[1:4, ],
-  caption = "Most popular name among male children over time by ethnicity",
+  caption = ,
   align = "lcccccc")
 ```
 
@@ -243,5 +250,11 @@ The following code chunk can be used to generate a scatterplot showing the numbe
 white_boy_names = baby_names_df %>%
   filter(gender == "MALE", ethnicity == "Non-Hispanic White", year_of_birth == "2016") 
 
-ggplot(white_boy_names, aes(x = rank, y = count)) + ggtitle("Frequency of name vs. popularity of name") + geom_point()
+ggplot(white_boy_names, aes(x = rank, y = count)) +
+  geom_point(color = "blue") +
+  labs(
+    title = "Frequency of baby name vs. popularity of name",
+    x = "Rank of baby name",
+    y = "Frequency of baby name")+
+  theme_minimal()
 ```
